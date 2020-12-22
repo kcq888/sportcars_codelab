@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-12-21T20:05:37-05:00",
+  "id": "sport_cars",
+  "duration": 0,
+  "title": "Stateful Widget Concepts",
+  "authors": "Kevin Quan",
+  "summary": "Dart SDK Language Concepts",
+  "source": "sportcars_codelab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "flutter-codelabs"
+  ],
+  "tags": [
+    "beginner"
+  ],
+  "url": "sport_cars"
+}

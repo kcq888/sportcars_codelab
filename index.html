@@ -1,0 +1,229 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Stateful Widget Concepts</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="sport_cars"
+                  title="Stateful Widget Concepts"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Overview" duration="0">
+        <p>Stateful Widget is mutable. The user interface can change base on user interactions or data. See the <a href="https://www.youtube.com/watch?v=AqCMFXEmf3w" target="_blank">Espisode</a> 2 of the Flutter Widget 101.</p>
+<p>What you will learn in this codelab:</p>
+<ul>
+<li>How Stateful Widget works</li>
+<li>ButtonBar Widget</li>
+<li>RaisedButton Widget</li>
+<li>TextField Widget</li>
+<li>TextEditingController</li>
+<li>InputDeclaration Widget</li>
+<li>External Color Picker plugin</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create Sport Cars Project" duration="0">
+        <p>In Visual Studio Code, create a new Flutter project and name it &#34;sportcars_dyn&#34;. This new Flutter project contains the counter application. This MyHomePage widget is a statefull widget. You can rename this MyHomePage Widget to MySportCarsPage Widget. You can use Visual Studion Code replace function to replace MyHomePage to MySportCarsPage. The VS Code replace function can be activate by pressing the Ctrl-Alt-H key sequence in Windows or Shift-Command-H in Mac OS X. You will also need to rename MyHomePageState to MySportCarsPageState.</p>
+<p>Port your existing Sport Cars application codes into MySportCarsPage by calling your SportCar Widget in the Column Widget&#39;s children widget array. If you have not done so, refactor your SportCar Widget into another file called sportcars.dart. You can cut and past your SportCars class into the sportcars.dart file. In the main.dart file, make sure to import the SportCars from the sportcars.dart by adding an import statement at the top of the main.dart file. Run your application again to ensure that it is still behave the same.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add User Interactions" duration="0">
+        <p>In this step, you will add a text field to allow the user to enter the name of the sport car, a color picker button to select a color, a clear button to clear the text field, and a add button to add the car to your list. You application should look like this when you are done.</p>
+<p class="image-container"><img alt="alt text" src="img/1eebf8eea217a4d3.png"></p>
+<p>Your existing code that contains the sport cars uses the Center Widget to center its content, and the Column Widget to vertically stack each sport cars in a column. In order to properly layout the TextField, and three RaisedButton Widget, we will need to use another Column widget like so.</p>
+<pre><code>Column
+    Container 
+        TextField
+    ButtonBar
+        RaisedButton
+        RaisedButton
+        RaisedButton
+    Center
+        Column
+            SportCars
+</code></pre>
+<p>The outter Column arrange the container, ButtonBar and the Column widgets vertically so that it layout proportionally in the user interface. You can find information about the TextField, InputDecloraton, ButtonBar and RaisedButton in <a href="https://flutter.dev/docs/reference/widgets" target="_blank">Flutter documentation</a>. Proceed adding those widget as suggested above without worry about the logic to make the user interface to be interactive. Make sure that you can display the TextField, ButtonBar and RaisedButton widgets. Below are snippets that you can use to fill in your code.</p>
+<p>Container:</p>
+<pre><code>Container(
+    margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+),
+</code></pre>
+<p>TextField:</p>
+<pre><code>child: TextField(
+decoration: InputDecoration(
+    border: OutlineInputBorder(),
+    filled: true,
+    labelText: &#34;Car Name&#34;),
+controller: _sportCarNameController,
+),
+</code></pre>
+<p>RaisedButton:</p>
+<pre><code>RaisedButton(
+    elevation: 3.0,
+    onPressed: () {
+    _sportCarNameController.clear();
+    },
+    child: Text(&#39;Clear&#39;),
+    color: Colors.blue,
+),
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adding Color Picker Pluggin" duration="0">
+        <p>To add plugin into your project, open the pubspec.yaml, and the flutter_colorpicker line below sdk: line. Make sure that the left margin align with the Flutter line above.</p>
+<pre><code>dependencies:
+  flutter:
+    sdk: flutter
+  flutter_colorpicker: ^0.3.4
+</code></pre>
+<p>When you save this file, the flutter framework will pull the plugin from pub.dev.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adding TextField Controller" duration="0">
+        <p>The TextField widget requires a controller to capture the text that the user type. Flutter provides the TextEditingController for this purpose. We will declare a variable like so at the top of your _MySportCarState state class.</p>
+<pre><code>class _MySportCartPageState extends State&lt;MySportCartPage&gt; {
+  TextEditingController _sportCarNameController;
+</code></pre>
+<p>Note that the variable has a null value because we have not create an instance of the TextEditingController yet. To do so, we will initialize it in the initState method.</p>
+<pre><code>  void initState() {
+    super.initState();
+    _sportCarNameController = new TextEditingController();
+  }
+</code></pre>
+<p>After the controller has been initialize, we have assign it to the TextField widget.</p>
+<pre><code>child: TextField(
+decoration: InputDecoration(
+    border: OutlineInputBorder(),
+    filled: true,
+    labelText: &#34;Car Name&#34;),
+controller: _sportCarNameController,
+</code></pre>
+<p>At this point, when you type something in the text field, the input will be stored in the _sportCarNameController variable.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add RaisedButton to the ButtonBar" duration="0">
+        <p>There are three RaisedButton in the ButtonBar. The first button is ‘Clear&#39;. The second button is ‘Color&#39;, and the third button is ‘Add&#39;. In the snippest below, we are adding these buttons to the ButtonBar widget.</p>
+<pre><code>ButtonBar(
+    children: &lt;Widget&gt;[
+    RaisedButton(
+        elevation: 3.0,
+        onPressed: () {
+        _sportCarNameController.clear();
+        },
+        child: Text(&#39;Clear&#39;),
+        color: Colors.blue,
+    ),
+    RaisedButton(
+        onPressed: () {
+        _buildShowDialog(context);
+        },
+        elevation: 3.0,
+        child: Text(&#39;Color&#39;),
+        color: Colors.blue,
+    ),
+    RaisedButton(
+        elevation: 3.0,
+        onPressed: _onAddSportCarOnPressed,
+        child: Text(&#39;Add&#39;),
+        color: Colors.blue)
+    ],
+),
+</code></pre>
+<p>Notice that all three RaisedButton process the onPressed event. The onPressed event property takes a function. the () represents an inline function. For the Clear event, we want to clear the content of the TextEditingController by calling the _sportCarNameController.clear() function. For the Color event, we want to display the color picker dialog. A dialog is a Window that is displayed on top of your application. See the image below.</p>
+<p><img alt="alt text" src="img/dd05f970508d4865.png">.</p>
+<p>For the ‘Add&#39; event, we want to collect the sport car name, and its color and add them to the list of the sport cars. We have to declare the list first at the top of your MySportCarState class and we also need to define the current color for the color picker.</p>
+<pre><code>class _MySportCartPageState extends State&lt;MySportCartPage&gt; {
+  TextEditingController _sportCarNameController;
+  var _sportcars = List&lt;Widget&gt;();
+  Color _currentColor = Colors.yellowAccent;
+</code></pre>
+<p>color_picker dialog:</p>
+<pre><code>  Future _buildShowDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            titlePadding: const EdgeInsets.all(0.0),
+            contentPadding: const EdgeInsets.all(0.0),
+            content: SingleChildScrollView(
+              child: ColorPicker(
+                pickerColor: _currentColor,
+                onColorChanged: changeColor,
+                colorPickerWidth: 300.0,
+                pickerAreaHeightPercent: 0.7,
+                enableAlpha: true,
+                displayThumbColor: true,
+                showLabel: true,
+                paletteType: PaletteType.hsv,
+                pickerAreaBorderRadius: const BorderRadius.only(
+                  topLeft: const Radius.circular(2.0),
+                  topRight: const Radius.circular(2.0),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+</code></pre>
+<p>Add Sport Cars:</p>
+<pre><code>    void _onAddSportCarOnPressed() {
+    setState(() {
+      _sportcars.add(SportCar(_sportCarNameController.text, _currentColor));
+      _sportCarNameController.clear();
+    });
+  }
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Update the Sport Cars Column" duration="0">
+        <p>The last step to make this application work, we have to update the MySportCarState Column widget to the _sportcars list.</p>
+<pre><code>child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: _sportcars,
+</code></pre>
+<p>At this point, re-launch your app, you will be able to dynamically add sport cars.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
